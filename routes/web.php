@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cart', function () {
-    return view('cart');
-})->name('cart');
 Route::get('/', [ProductController::class, 'index'])->name('index');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/cart', [CartController::class, 'show'])->middleware('auth')->name('cart');
+Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->middleware('auth')->name('cart.addToCart');
+Route::post('/cart/{id}/update/plus', [CartController::class, 'update'])->middleware('auth')->name('cart.update.plus');
+Route::post('/cart/{id}/update/minus', [CartController::class, 'update'])->middleware('auth')->name('cart.update.minus');
 
 require __DIR__.'/auth.php';

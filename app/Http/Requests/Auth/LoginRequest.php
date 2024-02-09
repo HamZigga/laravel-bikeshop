@@ -45,7 +45,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Неверные данные входа',
             ]);
         }
 
@@ -81,5 +81,19 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+    }
+
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Необходимо ввести email',
+            'email.email' => 'Неверные данные входа',
+            'password.required' => 'Необходимо ввести пароль',
+        ];
     }
 }

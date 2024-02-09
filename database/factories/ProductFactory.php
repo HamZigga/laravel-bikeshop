@@ -19,7 +19,8 @@ class ProductFactory extends Factory
         return [
             'title' => fake()->unique()->sentence($nbWords = 4, $variableNbWords = true),
             'image' => 'storage/images/pic-'.rand(1,2).'.webp',
-            'price' => fake()->numberBetween($min = 100, $max = 9999999),
+            'price' => fake()->numberBetween($min = 100, $max = 99999),
+            'discount' => fake()->boolean(),
         ];
     }
 }

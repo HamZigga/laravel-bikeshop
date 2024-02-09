@@ -4,7 +4,7 @@
         <!-- TODO: скрывать, когда пользователь не авторизован -->
         @auth
             <div class="d-flex flex-column align-items-center">
-                <span class="bg-primary fs-6 text-light px-2 rounded-pill">999 баллов</span>
+                <span class="bg-primary fs-6 text-light px-2 rounded-pill">{{ number_format(Auth::user()->bonuses, 0, '', ' ') }} баллов</span>
                 <span class="login text-light fs-6">{{ Auth::user()->email }}</span>
             </div>
         @endauth
@@ -40,7 +40,7 @@
             @endguest
             @auth
                 <!-- Кнопка выйти -->
-                <button class="btn" title="Выйти">
+                <button class="btn" title="Выйти" form="logout">
                     <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -52,6 +52,9 @@
                         <path d="M12 11V13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
                     </svg>
                 </button>
+                <form method="POST" id='logout' action="{{ route('logout')}}">
+                    @csrf
+                </form>
             @endauth
         </div>
 
