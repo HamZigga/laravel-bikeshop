@@ -1,0 +1,32 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-w40geAFS.js",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/cart.css": {
+    "file": "assets/cart-Ds_wQhlH.css",
+    "src": "resources/css/cart.css",
+    "isEntry": true
+  },
+  "resources/css/index.css": {
+    "file": "assets/index-as3QnVh8.css",
+    "src": "resources/css/index.css",
+    "isEntry": true
+  },
+  "resources/css/normalize.min.css": {
+    "file": "assets/normalize-94Ex2egj.css",
+    "src": "resources/css/normalize.min.css",
+    "isEntry": true
+  },
+  "resources/css/signin.css": {
+    "file": "assets/signin-RgbD91kt.css",
+    "src": "resources/css/signin.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-zz7vXhT0.js",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}

@@ -9,12 +9,22 @@ class Cart extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int>
+     */
     protected $fillable = [
         'user_id',
         'product_id',
         'quantity',
     ];
-
+    
+    /**
+     * product
+     *
+     * @return void
+     */
     public function product()
     {
         return $this->belongsTo(Product::class);

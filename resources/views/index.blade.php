@@ -13,8 +13,7 @@
             @foreach ($products as $product)
                 @include('components.product-card')
             @endforeach
-
-        
+            
         {{ $products->links('components.paginator') }}
     </div>
 @endsection

@@ -1,6 +1,6 @@
 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
     <!-- TODO: добавлять синюю рамку карточке товара (класс border-primary), если на товар можно потратить баллы -->
-    <article class="card mt-5 overflow-hidden @if($product->discount) border-primary @endif">
+    <article class="card mt-5 overflow-hidden @if ($product->discount) border-primary @endif">
         <div class="img-wrap">
             <img class="w-100" src="{{ asset($product->image) }}" alt="Изображение товара">
         </div>
@@ -13,16 +13,17 @@
                     {{ number_format($product->price, 0, '', ' ') }} ₽
                 </p>
 
-                @if (!is_null($cart_products) && $cart_products->contains('product_id', $product->id))
-                    
+                @if (isset($cart_products) && $cart_products->contains('product_id', $product->id))
                     <!-- TODO: этот блок появлется после нажатия кнопки "В корзину" -->
                     <div class="d-flex align-items-center gap-3">
-                        <form method="POST" class="once" action="{{ route('cart.update.minus', $cart_products->where('product_id', $product->id)->first()->id)}}">
+                        <form method="POST" class="once"
+                            action="{{ route('cart.update.minus', $cart_products->where('product_id', $product->id)->first()->id) }}">
                             @csrf
                             <button class="btn btn-outline-primary">-</button>
                         </form>
                         <span>{{ $cart_products->where('product_id', $product->id)->first()->quantity }}</span>
-                        <form method="POST" class="once" action="{{ route('cart.update.plus', $cart_products->where('product_id', $product->id)->first()->id)}}">
+                        <form method="POST" class="once"
+                            action="{{ route('cart.update.plus', $cart_products->where('product_id', $product->id)->first()->id) }}">
                             @csrf
                             <button class="btn btn-outline-primary">+</button>
                         </form>

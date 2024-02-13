@@ -18,8 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index'])->name('index');
 Route::get('/cart', [CartController::class, 'show'])->middleware('auth')->name('cart');
-Route::post('/cart/addToCart', [CartController::class, 'addToCart'])->middleware('auth')->name('cart.addToCart');
-Route::post('/cart/{id}/update/plus', [CartController::class, 'update'])->middleware('auth')->name('cart.update.plus');
-Route::post('/cart/{id}/update/minus', [CartController::class, 'update'])->middleware('auth')->name('cart.update.minus');
 
-require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('cart')->group(function () {
+        Route::name('cart.')->group(function () {
+            Route::post('/addToCart', [CartController::class, 'addToCart'])->name('addToCart');
+            Route::post('/{id}/update/plus', [CartController::class, 'updatePlus'])->name('update.plus');
+            Route::post('/{id}/update/minus', [CartController::class, 'updateMinus'])->name('update.minus');
+        });
+    });
+});
+
+require __DIR__ . '/auth.php';

@@ -11,7 +11,7 @@ test2@test2.com test2test2
 
 `cp .env.docker .env`
 
-`cd /docker`
+`cd docker`
 
 `docker-compose build`
 
