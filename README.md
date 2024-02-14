@@ -24,6 +24,7 @@ test2@test2.com test2test2
 `php artisan key:generate`
 
 `php artisan migrate --seed`
+`(php artisan migrate:fresh --seed если база уже создана)`
 
 `php artisan storage:link`
 
