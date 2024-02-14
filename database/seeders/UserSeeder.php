@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'email' => 'test@test.ru',
             'password' => 'testtest',
-            'bonuses' => '1000',
+            'bonuses' => '30000',
         ]);
 
         User::factory()->create([
             'email' => 'test2@test2.com',
             'password' => 'test2test2',
-            'bonuses' => '542',
+            'bonuses' => '5042',
         ]);
     }
 }

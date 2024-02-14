@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class CartController
+ */
 class CartController extends Controller
 {
 
+    /**
+     * Display a user's cart
+     *
+     * @return View
+     */
     public function show()
     {
 
-        $cart_products = Cart::where('user_id', auth()->user()->id)->orderBy('updated_at')->get();
+        $cart_products = Cart::authUser()->orderBy('updated_at')->get();
         $cart_total = $this->total($cart_products);
         $cart_discount = $this->discount($cart_total, $cart_products);
         $cart_discountPercent = $cart_discount[0];
@@ -30,6 +38,12 @@ class CartController extends Controller
         return view('cart', compact('cart_products', 'cart_total'));
     }
 
+    /**
+     * create a new user cart
+     *
+     * @param  mixed $request
+     * @return RedirectResponse
+     */
     public function addToCart(Request $request)
     {
         Cart::create([
@@ -40,6 +54,12 @@ class CartController extends Controller
         return back()->with('success', 'Предмет добавлен в корзину');
     }
 
+    /**
+     * increase the number of product
+     *
+     * @param  mixed $id
+     * @return RedirectResponse
+     */
     public function updatePlus($id)
     {
         $product = Cart::findOrFail($id);
@@ -49,6 +69,12 @@ class CartController extends Controller
         return back()->with('success', 'Предмет добавлен в корзину');
     }
 
+    /**
+     * reduce the number of products
+     *
+     * @param  mixed $id
+     * @return RedirectResponse
+     */
     public function updateMinus($id)
     {
         $product = Cart::findOrFail($id);
@@ -62,19 +88,33 @@ class CartController extends Controller
         return back()->with('success', 'Предмет убран из корзины');
     }
 
+
+    /**
+     * cart amount
+     *
+     * @param  mixed $cart_products
+     * @return int
+     */
     private function total($cart_products)
     {
         $cart_total = 0;
-        foreach ($cart_products as $key => $cart_product) {
+        foreach ($cart_products as $cart_product) {
             $cart_total += $cart_product->quantity * $cart_product->product->price;
         }
         return $cart_total;
     }
 
+    /**
+     * total discount percentage and discounted cart amount
+     *
+     * @param  mixed $cart_total
+     * @param  mixed $cart_products
+     * @return array
+     */
     private function discount($cart_total, $cart_products)
     {
         $cart_discountSum = 0;
-        foreach ($cart_products as $key => $cart_product) {
+        foreach ($cart_products as $cart_product) {
             if ($cart_product->product->discount) {
                 $cart_discountSum += $cart_product->quantity * $cart_product->product->price;
             }
